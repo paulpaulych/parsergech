@@ -41,8 +41,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/paulpaulych/parsergech")
             credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("PACKAGES_WRITE_TOKEN")
+                username = "paulpaulych"
+                password = "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"
             }
         }
     }
