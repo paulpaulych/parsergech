@@ -42,7 +42,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/paulpaulych/parsergech")
             credentials {
                 username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD>")
+                password = System.getenv("MAVEN_PASSWORD")
             }
         }
     }
