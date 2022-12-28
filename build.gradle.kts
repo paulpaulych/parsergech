@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.7.20"
+    id("maven-publish")
 }
 
 group = "io.github.paulpaulych"
@@ -23,8 +24,32 @@ tasks {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    val kotestVersion = "5.5.1"
+    val kotestVersion = "5.5.4"
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-property:$kotestVersion")
+}
+
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/paulpaulych/parsergech")
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        register("mavenJava", MavenPublication::class) {
+            from(components["java"])
+            artifact(sourcesJar.get())
+        }
+    }
 }
